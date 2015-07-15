@@ -94,7 +94,7 @@ function Game:draw()
 
 	local screenBoarder = 22;
 	local tileSize = math.abs((math.min(sw, sh)-screenBoarder) / self.grid.width)
-	local boarder = 2
+	local boarder = 3
 
 	local totalWidth = tileSize * self.grid.width;
 	local totalHeight = tileSize * self.grid.height;
@@ -111,6 +111,10 @@ function Game:draw()
 			if self.demo then
 			    mul = 0.5
 			end
+			local shadowMul = mul * 0.8
+
+			love.graphics.setColor(node.color.r*shadowMul, node.color.g*shadowMul, node.color.b*shadowMul, node.color.a)
+			love.graphics.rectangle("fill", sx+tileSize*x + 2, sy+tileSize*y + 2, tileSize-boarder, tileSize-boarder)
 
 			love.graphics.setColor(node.color.r*mul, node.color.g*mul, node.color.b*mul, node.color.a)
 			love.graphics.rectangle("fill", sx+tileSize*x, sy+tileSize*y, tileSize-boarder, tileSize-boarder)

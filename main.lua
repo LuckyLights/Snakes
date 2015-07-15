@@ -48,6 +48,7 @@ function love.draw()
 end
 
 function love.update(dt)
+	KeyboardManager.update()
 	currentScene:update(dt)
 end
 

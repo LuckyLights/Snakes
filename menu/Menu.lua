@@ -2,13 +2,7 @@ require("class")
 require("util")
 require("FontManager")
 require("AudioManager")
-
-lastEnter = false 
-lastBack = false 
-lastUp = false
-lastDown = false
-lastRight = false
-lastLeft = false 
+require("KeyboardManager")
 
 Menu = class(function(self, buttonDelegate)
 	self.buttons = {}
@@ -28,32 +22,25 @@ end
 function Menu:update(dt)
 	self.fadeTimer = self.fadeTimer+dt
 
-	local enter = love.keyboard.isDown("return") or love.keyboard.isDown(" ")
-	local back = love.keyboard.isDown("backspace") or love.keyboard.isDown("escape")
-	local up = love.keyboard.isDown("up")
-	local down = love.keyboard.isDown("down")
-	local right = love.keyboard.isDown("right")
-	local left = love.keyboard.isDown("left")
-
-	if back and not lastBack then
+	if KeyboardManager.back then
 	    self.buttonDelegate:onBack()
 	end
 
-	if enter and not lastEnter then
+	if KeyboardManager.enter then
 		if not self.currentButton:onPress() then
 		    self.buttonDelegate:onButton(self.currentButton)
 		end
 	end
 
 	if #self.buttons > 1 then
-		if up and not lastUp then
+		if KeyboardManager.up then
 		    local prev = (util.table.indexOf(self.buttons, self.currentButton) - 1)
 		    if prev <= 0 then prev = #self.buttons end
 		    self.currentButton = self.buttons[prev]
 		    AudioManager.play(AudioManager.move_menu)
 		end
 		
-		if down and not lastDown then
+		if KeyboardManager.down then
 		    local nex = (util.table.indexOf(self.buttons, self.currentButton) + 1) % #self.buttons
 		    if nex == 0 then nex = #self.buttons end
 		    self.currentButton = self.buttons[nex]
@@ -61,20 +48,13 @@ function Menu:update(dt)
 		end
 	end
 
-	if left and not lastLeft then
+	if KeyboardManager.left then
 		self.currentButton:prevOption()
 	end
 
-	if right and not lastRight then
+	if KeyboardManager.right then
 		self.currentButton:nextOption()
 	end
-
-	lastEnter = enter
-	lastUp = up
-	lastDown = down
-	lastBack = back 
-	lastRight = right
-	lastLeft = left 
 end
 
 function Menu:draw()

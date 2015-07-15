@@ -1,7 +1,5 @@
 require("class")
 require("HighscoreManager")
- 
-lastBack = false 
 
 HighscoreMenu = class(function(self, buttonDelegate)
 	self.buttonDelegate = buttonDelegate
@@ -12,13 +10,9 @@ end)
 function HighscoreMenu:update(dt)
 	self.fadeTimer = self.fadeTimer+dt
 
-	local back = love.keyboard.isDown("backspace") or love.keyboard.isDown("escape")
-
-	if back and not lastBack then
+	if KeyboardManager.back then
 	    self.buttonDelegate:onBack()
 	end
-
-	lastBack = back 
 end
 
 function HighscoreMenu:draw()
