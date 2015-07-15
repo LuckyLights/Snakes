@@ -1,0 +1,16 @@
+{
+	"folders":
+	[
+		{
+			"path": "."
+		}
+	],
+	"build_systems":
+    [
+        {
+            "name": "Love",
+            "shell": false,
+            "cmd": ["/Workspace/love/love.app/Contents/MacOS/love", "/Workspace/love/Snakes"],
+        }
+    ]
+}
