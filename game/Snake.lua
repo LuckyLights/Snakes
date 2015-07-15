@@ -1,6 +1,6 @@
 require("class")
-require("Tile")
-require("AStar")
+require("game/Tile")
+require("game/AStar")
 
 -- Snake Type
 SnakeType = {}

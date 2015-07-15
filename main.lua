@@ -1,6 +1,6 @@
 require("data/data")
-require("Game")
-require("MainMenu")
+require("game/Game")
+require("menu/MainMenu")
 require("FontManager")
 require("AudioManager")
 require("HighscoreManager")

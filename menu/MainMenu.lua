@@ -3,7 +3,7 @@ require("menu/Menu")
 require("menu/Button")
 require("menu/HighscoreMenu")
 
-require("Snake")
+require("game/Snake")
 
 require("AudioManager")
 

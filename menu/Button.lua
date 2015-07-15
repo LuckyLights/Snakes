@@ -1,5 +1,5 @@
 require("class")
-require("data.Color")
+require("data/Color")
 Button = class(function(self, options)
 	self.options = options
 	self.title = options[1]

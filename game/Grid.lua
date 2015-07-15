@@ -1,5 +1,5 @@
 require("class")
-require("Tile")
+require("game/Tile")
 
 GridNode = class(function(self, pos, tile)
 	self.pos = pos
