@@ -96,11 +96,13 @@ function Snake:updateSnakeLogicAI(grid, candyNodes)
 	local closesDistance = math.huge
 	local closesCandyNode = nil
 	for _,candyNode in ipairs(candyNodes) do
-		local diff = self.pos - candyNode.pos
-		local dist = diff:sqrMagnitude()
-		if dist < closesDistance then
-			closesDistance = dist
-			closesCandyNode = candyNode
+		if candyNode.tile.candyType ~= CandyType.DEATH then
+		   	local diff = self.pos - candyNode.pos
+			local dist = diff:sqrMagnitude()
+			if dist < closesDistance then
+				closesDistance = dist
+				closesCandyNode = candyNode
+			end
 		end
 	end
 

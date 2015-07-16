@@ -145,7 +145,11 @@ function MainMenu:draw()
 
 		love.graphics.setColor(255, 255, 255, 255)
 		FontManager.set(FontManager.bigFont)
-		FontManager.printCenter("Snakes", sw*.5, sh*.2)
+		if self.currentMenu == self.lightbikeMenu then
+		    FontManager.printCenter("Light Bikes", sw*.5, sh*.2)
+		else
+			FontManager.printCenter("Snakes", sw*.5, sh*.2)
+		end
 	end
 
 	-- darw the current menu

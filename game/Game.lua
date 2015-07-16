@@ -270,13 +270,13 @@ function Game:gameStep(dt)
 		snake:updateLogic(self.grid, self.snakes, self.candyNodes, self.gameMode)
 	end
 
-	-- update step timers
-	if #self.candyNodes < self.maxCandy then
-	    self.candyTimer = self.candyTimer + 1
-	end
-
 	-- Update some global rules like adding candy
 	if self.gameMode ~= GameMode.LIGHT_BIKES then
+		-- update step timers
+		if #self.candyNodes < self.maxCandy then
+		    self.candyTimer = self.candyTimer + 1
+		end
+
 		if self.candyTimer > 10 and #self.candyNodes < self.maxCandy then
 
 			self.candyTimer = 0
@@ -284,7 +284,21 @@ function Game:gameStep(dt)
 			repeat
 				local cord = Vec2(love.math.random(1, self.grid.width), love.math.random(1, self.grid.height))
 				if self.grid:getTile(cord) == EmptyTile then
-					self.grid:setTile(cord, CandyTile, 0.2)
+					local candyTile = nil 
+					if love.math.random(1, 100) < 20 then
+						candyTile = Tile(TileType.CANDY, Color(0, 150, 50, 255))
+						candyTile.candyType = CandyType.FAT
+						candyTile.candyLifeTime = 30
+					elseif love.math.random(1, 100) < 10 then
+						candyTile = Tile(TileType.CANDY, Color(20, 20, 20, 255))
+						candyTile.candyType = CandyType.DEATH
+						candyTile.candyLifeTime = 25
+					else
+						candyTile = Tile(TileType.CANDY, Color(150, 50, 150, 255))
+						candyTile.candyType = CandyType.NORMAL
+						candyTile.candyLifeTime = 60
+					end 
+					self.grid:setTile(cord, candyTile, 0.2)
 					self.candyNodes[#self.candyNodes+1] = self.grid:getNode(cord)
 
 					tryCount = 11
@@ -292,6 +306,15 @@ function Game:gameStep(dt)
 					tryCount = tryCount + 1
 				end 
 			until tryCount > 10
+		end
+
+		for _,candyNode in ipairs(self.candyNodes) do
+			candyNode.tile.candyLifeTime = candyNode.tile.candyLifeTime - 1
+
+			if candyNode.tile.candyLifeTime < 0 then
+			    util.table.removeValue(self.candyNodes, candyNode)
+				self.grid:setTile(candyNode.pos, EmptyTile, 1)
+			 end 
 		end
 	end
 
@@ -325,10 +348,19 @@ function Game:gameStep(dt)
 							self.grid:setTile(cord, EmptyTile, 1)
 						end
 
-						if node.tile == CandyTile then
+						if node.tile.type == TileType.CANDY then
 							snake.length = snake.length + 1
+							if node.tile.candyType == CandyType.NORMAL then
+								if not self.demo then AudioManager.play(AudioManager.candy) end
+							    snake.length = snake.length + 1
+							elseif node.tile.candyType == CandyType.FAT then
+								if not self.demo then AudioManager.play(AudioManager.candy) end
+							    snake.length = snake.length + 2
+							elseif node.tile.candyType == CandyType.DEATH then
+								deadSnakes[#deadSnakes+1] = snake
+							end
+
 							util.table.removeValue(self.candyNodes, node)
-							if not self.demo then AudioManager.play(AudioManager.candy) end
 						end
 
 					elseif self.gameMode == GameMode.LIGHT_BIKES then

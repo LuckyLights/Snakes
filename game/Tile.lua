@@ -13,4 +13,7 @@ TileType.EMPTY, TileType.SNAKE, TileType.CANDY = 1, 2, 3
 
 --Pre defiend tiles
 EmptyTile = Tile(TileType.EMPTY, Color(50, 50, 50, 255))
-CandyTile = Tile(TileType.CANDY, Color(150, 50, 150, 255))
+
+-- Candy type
+CandyType = {}
+CandyType.NORMAL, CandyType.DEATH, CandyType.FAT = 1, 2, 3
