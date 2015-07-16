@@ -42,7 +42,7 @@ function Vec2:magnitude()
 	return math.sqrt(self.x*self.x, self.y*self.y);
 end
 
--- Predefine constants
+-- Predefine vectors
 Vec2.ZERO = Vec2(0, 0)
 Vec2.ONE = Vec2(1, 1)
 

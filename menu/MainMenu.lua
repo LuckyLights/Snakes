@@ -34,6 +34,7 @@ MainMenu = class(function(self)
 	self.mainMenu:addButton(Button({"Multiplayer Snake"}))
 	self.mainMenu:addButton(Button({"Lightbikes"}))
 	self.mainMenu:addButton(Button({"Highscore"}))
+	self.mainMenu:addButton(Button({"Quit"}))
 
 	self.playButton = Button({"Play"});
 
@@ -102,6 +103,8 @@ function MainMenu:onButton(button)
 	elseif button.title == "Highscore" then
 	    self.currentMenu = self.highscoreMenu
 	    AudioManager.play(AudioManager.select_menu)
+	elseif button.title == "Quit" then
+	    love.event.push("quit")
 	elseif button == self.playButton then
 		if self.currentMenu == self.soloMenu then
 			local game = Game(GameMode.SNAKE, GameSpeed[self.soloSpeed.title], SnakeType.PLAYER, nil, nil, nil, self.warpButton.title == Warp.on, false)
