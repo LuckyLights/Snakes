@@ -1,4 +1,6 @@
 require("class")
+require("data/Color")
+
 
 Tile = class(function(self, type, color)
 	self.type = type

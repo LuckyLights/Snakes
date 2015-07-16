@@ -20,18 +20,21 @@ function Menu:addButton(button)
 end
 
 function Menu:update(dt)
+
 	self.fadeTimer = self.fadeTimer+dt
 
 	if KeyboardManager.back then
 	    self.buttonDelegate:onBack()
 	end
 
+	-- captuers the enter in the button if it got options, else return it to the delegate
 	if KeyboardManager.enter then
 		if not self.currentButton:onPress() then
 		    self.buttonDelegate:onButton(self.currentButton)
 		end
 	end
 
+	-- only do button switching if there is any buttons to switch to
 	if #self.buttons > 1 then
 		if KeyboardManager.up then
 		    local prev = (util.table.indexOf(self.buttons, self.currentButton) - 1)
@@ -48,6 +51,7 @@ function Menu:update(dt)
 		end
 	end
 
+	-- option switching on buttons
 	if KeyboardManager.left then
 		self.currentButton:prevOption()
 	end

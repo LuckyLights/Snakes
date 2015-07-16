@@ -5,6 +5,8 @@ require("game/Tile")
 require("game/Snake")
 require("game/Grid")
 
+require("data/Vec2")
+
 require("AudioManager")
 
 -- GameMode enum
@@ -32,6 +34,7 @@ end)
 function Game:reset()
 	self.snakes = {}
 
+	-- Switches spawn points and map scale depending on the game mode
 	if self.gameMode ~= GameMode.LIGHT_BIKES then
 	    self.grid = Grid(32, 32, self.wrap)
 		if self.p1 ~= nil then
@@ -63,17 +66,26 @@ function Game:reset()
 		end
 	end
 
-	self.candyNodes = {}
+	if self.gameMode == GameMode.SNAKE then
+		self.maxCandy = 1
+	elseif self.gameMode == GameMode.MULTI_SNAKE then
+	    self.maxCandy = 5
+	end
 
+	-- game vars init
+	self.candyNodes = {}
 	self.framesCount = 0
 	self.candyTimer = 0.0
 	self.frameTimer = 0.0
 
+	-- intro vars init
 	self.readyTimer = 0.0
 	self.readyTimerBleep = 0.0
 
+	-- outro vars init
 	self.endTimer = 0.0
 
+	-- start game
 	if self.demo then
 	    self.state = GameState.RUNNING;
 	else
@@ -240,11 +252,10 @@ function Game:updateGame(dt)
 
 	-- update timers
 	self.framesCount = self.framesCount + 1;
-	self.candyTimer = self.candyTimer+dt;
 	self.frameTimer = self.frameTimer+dt;
 
 	-- Turn updates every so many frames set by game speed
-	if self.frameTimer > self.gameSpeed then
+	if self.frameTimer >= self.gameSpeed then
 		self.frameTimer = 0.0
 
 		-- okay lets take a step
@@ -259,9 +270,14 @@ function Game:gameStep(dt)
 		snake:updateLogic(self.grid, self.snakes, self.candyNodes, self.gameMode)
 	end
 
+	-- update step timers
+	if #self.candyNodes < self.maxCandy then
+	    self.candyTimer = self.candyTimer + 1
+	end
+
 	-- Update some global rules like adding candy
 	if self.gameMode ~= GameMode.LIGHT_BIKES then
-		if self.candyTimer > 1.0 and #self.candyNodes < 5 then
+		if self.candyTimer > 10 and #self.candyNodes < self.maxCandy then
 
 			self.candyTimer = 0
 			local tryCount = 0

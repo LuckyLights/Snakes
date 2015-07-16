@@ -27,6 +27,8 @@ function love.load()
  	gotoMenu()
 end
 
+
+-- goto calls
 function startGame(game)
 	currentScene = game
 end
@@ -42,8 +44,6 @@ end
 
 function love.draw()
 	currentScene:draw()
-	-- love.graphics.setColor(255, 0, 0, 255)
-	-- love.graphics.print("Snakes", 100, 100)
 end
 
 function love.update(dt)
@@ -51,7 +51,7 @@ function love.update(dt)
 	currentScene:update(dt)
 end
 
-
+-- text grabbing function
 grabbedText = ""
 grabText = false
 function startGrabbingText()

@@ -117,8 +117,8 @@ function Snake:updateSnakeLogicAI(grid, candyNodes)
 end
 
 function Snake:updateLightbikeLogicAI(grid, snakes) 
-	
-	-- find the closes snake head predicted next move
+	-- this AI is bad...
+	-- find the closes snake head + next move
 	local closesDistance = math.huge
 	local closesNode = nil
 	for _,snake in ipairs(snakes) do

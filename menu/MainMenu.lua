@@ -7,6 +7,7 @@ require("game/Snake")
 
 require("AudioManager")
 
+-- Parameters for the button options
 Speed = {}
 Speed.normal, Speed.fast, Speed.faster, Speed.insane, Speed.slow, Speed.snail = "Speed: Normal", "Speed: Fast", "Speed: Faster", "Speed: Insane!!!", "Speed: Slow", "Speed: Snail"
 GameSpeed = {}
@@ -23,6 +24,8 @@ Warp.on, Warp.off = "Wrap: ON", "Wrap: OFF"
 PlayerOptions = {SnakeType.PLAYER, SnakeType.AI, nil}
 
 MainMenu = class(function(self)
+
+	-- Init all buttons and menus
 	self.startMenu = Menu(self)
 	self.startMenu:addButton(Button({"Press Start"}))
 
@@ -76,8 +79,10 @@ MainMenu = class(function(self)
 
 	self.highscoreMenu = HighscoreMenu(self)
 
+	-- init the background game 
 	self.backgroundGame = Game(GameMode.MULTI_SNAKE, GameSpeed[Speed.fast], SnakeType.AI, SnakeType.AI, SnakeType.AI, SnakeType.AI, false, true)
 
+	-- start at the start menu
 	self.currentMenu = self.startMenu
 end)
 
@@ -140,7 +145,7 @@ function MainMenu:draw()
 		FontManager.printCenter("Snakes", sw*.5, sh*.2)
 	end
 
-	-- dar the current menu
+	-- darw the current menu
 	self.currentMenu:draw()
 end
 

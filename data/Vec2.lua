@@ -33,6 +33,7 @@ function Vec2:fliped()
 	return Vec2(self.y, self.x)
 end
 
+-- 'fast' magnitude
 function Vec2:sqrMagnitude()
 	return math.abs(self.x) + math.abs(self.y)
 end

@@ -2,6 +2,7 @@ require("util")
 
 AStar = {}
 
+-- kind of std AStar
 function AStar.findPath(start, goal, grid, dir)
 
 	if start == goal then
