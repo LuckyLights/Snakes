@@ -1,8 +1,8 @@
 FontManager = {}
 
 function FontManager.init() 
-	FontManager.bigFont = {font=love.graphics.newFont("assets/fonts/04B_19__.ttf", 120), size=120}
-	FontManager.smallFont = {font=love.graphics.newFont("assets/fonts/04B_19__.ttf", 40), size=40}
+	FontManager.bigFont = {font=love.graphics.newFont("assets/fonts/font.ttf", 120), size=120}
+	FontManager.smallFont = {font=love.graphics.newFont("assets/fonts/font.ttf", 40), size=40}
 end
 
 function FontManager.set(font)
