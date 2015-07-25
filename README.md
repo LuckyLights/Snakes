@@ -2,7 +2,7 @@
 Snake and Light Bikes game, written in Lua.
 Written for practice purposes.
 
-# Controlls
+# Controls
 
 Menu: Arrow Up, Down, Left, Right, Enter, Esc
 
