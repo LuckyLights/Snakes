@@ -1,12 +1,12 @@
 # Snakes
 Snake and Light Bikes game, written in Lua.
-Written for practice purposes.
+Runs on [löve2d](https://love2d.org).  
+_Written for practice purposes._
 
-# Controls
+## Controls
 
-Menu: Arrow Up, Down, Left, Right, Enter, Esc
-
-Player 1: Arrow Up, Down, Left, Right
-Player 2: W, A, S, D
-Player 3: T, F, G, H
-Player 4: I, J, K, L
+* __Menu:__ Arrow Up, Down, Left, Right, Enter, Esc
+* __Player 1:__ Arrow Up, Down, Left, Right
+* __Player 2:__ W, A, S, D
+* __Player 3:__ T, F, G, H
+* __Player 4:__ I, J, K, L
